@@ -7,7 +7,7 @@ def load_data(data_dir: str = "data") -> pd.DataFrame:
                          parse_dates=["order_purchase_timestamp"])
     items = pd.read_csv(os.path.join(data_dir, "olist_order_items_dataset.csv"))
     products = pd.read_csv(os.path.join(data_dir, "olist_products_dataset.csv"))
-    translation = pd.read_csv(os.path.join(data_dir, "olist_product_category_name_translation.csv"))
+    translation = pd.read_csv(os.path.join(data_dir, "product_category_name_translation.csv"))
     payments = pd.read_csv(os.path.join(data_dir, "olist_order_payments_dataset.csv"))
     customers = pd.read_csv(os.path.join(data_dir, "olist_customers_dataset.csv"))
 
