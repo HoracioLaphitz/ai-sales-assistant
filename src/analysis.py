@@ -1,6 +1,5 @@
 import pandas as pd
-import plotly.graph_objects as go
-from src.charts import bar_chart, line_chart, choropleth_brazil
+from src.charts import bar_chart, line_chart, states_bar_chart
 
 
 def run_analysis(df: pd.DataFrame) -> dict:
@@ -8,10 +7,9 @@ def run_analysis(df: pd.DataFrame) -> dict:
     total_orders = df["order_id"].nunique()
     aov = round(total_revenue / total_orders, 2) if total_orders > 0 else 0.0
 
-    monthly = df.copy()
-    monthly["month"] = monthly["order_purchase_timestamp"].dt.to_period("M").astype(str)
     monthly_agg = (
-        monthly.groupby("month")["payment_value"].sum()
+        df.assign(month=df["order_purchase_timestamp"].dt.to_period("M").astype(str))
+        .groupby("month")["payment_value"].sum()
         .reset_index()
         .rename(columns={"payment_value": "revenue"})
         .sort_values("month")
@@ -33,8 +31,8 @@ def run_analysis(df: pd.DataFrame) -> dict:
         .reset_index()
         .rename(columns={"payment_value": "revenue"})
     )
-    fig_states = choropleth_brazil(by_state, state_col="customer_state",
-                                   value_col="revenue", title="Revenue por estado (R$)")
+    fig_states = states_bar_chart(by_state, state_col="customer_state",
+                                  value_col="revenue", title="Revenue por estado (R$)")
 
     return {
         "kpis": {

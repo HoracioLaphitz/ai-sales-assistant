@@ -15,6 +15,10 @@ Si la pregunta no está relacionada con los datos de ventas, indicalo amablement
 
 
 def build_agent(df: pd.DataFrame, api_key: str) -> Any:
+    if create_pandas_dataframe_agent is None:
+        raise ImportError(
+            "langchain_experimental unavailable. Run: pip install langchain-experimental"
+        )
     llm = ChatGroq(model="llama3-70b-8192", api_key=api_key, temperature=0)
     agent = create_pandas_dataframe_agent(
         llm,

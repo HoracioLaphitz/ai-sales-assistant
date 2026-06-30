@@ -19,6 +19,11 @@ def get_data():
     return load_data("data")
 
 
+@st.cache_data
+def get_analysis(_df):
+    return run_analysis(_df)
+
+
 @st.cache_resource
 def get_agent(_df, api_key):
     return build_agent(_df, api_key)
@@ -33,7 +38,7 @@ if not api_key:
 with st.spinner("Cargando datos de Olist (~100k órdenes)..."):
     df = get_data()
 
-analysis = run_analysis(df)
+analysis = get_analysis(df)
 kpis = analysis["kpis"]
 figs = analysis["figs"]
 
