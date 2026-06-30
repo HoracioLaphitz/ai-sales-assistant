@@ -1,12 +1,15 @@
 import os
 import streamlit as st
+from dotenv import load_dotenv
 from src.loader import load_data
 from src.analysis import run_analysis
 from src.agent import build_agent, ask
 
+load_dotenv()
+
 st.set_page_config(
     page_title="AI Sales Assistant",
-    page_icon="🤖",
+    page_icon="🫡",
     layout="wide",
 )
 
@@ -29,10 +32,10 @@ def get_agent(_df, api_key):
     return build_agent(_df, api_key)
 
 
-api_key = os.environ.get("GROQ_API_KEY", "")
+api_key = os.environ.get("NVAPI", "")
 
 if not api_key:
-    st.error("❌ GROQ_API_KEY no encontrada. Configurá la variable de entorno GROQ_API_KEY antes de correr la app.")
+    st.error("❌ NVAPI no encontrada. Configurá la variable de entorno NVAPI antes de correr la app.")
     st.stop()
 
 with st.spinner("Cargando datos de Olist (~100k órdenes)..."):
