@@ -1,12 +1,14 @@
 from typing import Any
 
 import pandas as pd
-from langchain_groq import ChatGroq
+from langchain_nvidia_ai_endpoints import ChatNVIDIA
 
 try:
     from langchain_experimental.agents import create_pandas_dataframe_agent
 except Exception:  # pragma: no cover — binary compat guard for CI/test envs
     create_pandas_dataframe_agent = None  # type: ignore[assignment]
+
+MODEL = "meta/llama-3.3-70b-instruct"
 
 SYSTEM_PREFIX = """Sos un asistente de análisis de ventas para datos de e-commerce de Brasil.
 Respondés en español con números concretos y contexto de negocio.
@@ -19,7 +21,7 @@ def build_agent(df: pd.DataFrame, api_key: str) -> Any:
         raise ImportError(
             "langchain_experimental unavailable. Run: pip install langchain-experimental"
         )
-    llm = ChatGroq(model="llama3-70b-8192", api_key=api_key, temperature=0)
+    llm = ChatNVIDIA(model=MODEL, api_key=api_key, temperature=0)
     agent = create_pandas_dataframe_agent(
         llm,
         df,

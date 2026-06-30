@@ -4,7 +4,7 @@ from src.agent import build_agent, ask
 
 
 def test_build_agent_returns_executor(sample_df):
-    with patch("src.agent.ChatGroq") as mock_llm_cls, \
+    with patch("src.agent.ChatNVIDIA") as mock_llm_cls, \
          patch("src.agent.create_pandas_dataframe_agent") as mock_create:
         mock_llm = MagicMock()
         mock_llm_cls.return_value = mock_llm
@@ -14,7 +14,7 @@ def test_build_agent_returns_executor(sample_df):
         agent = build_agent(sample_df, api_key="test-key")
 
         mock_llm_cls.assert_called_once_with(
-            model="llama3-70b-8192", api_key="test-key", temperature=0
+            model="meta/llama-3.3-70b-instruct", api_key="test-key", temperature=0
         )
         mock_create.assert_called_once()
         assert agent is mock_executor
