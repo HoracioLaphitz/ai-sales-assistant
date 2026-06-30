@@ -14,7 +14,7 @@ Copiá estos archivos en `data/`:
 - `olist_orders_dataset.csv`
 - `olist_order_items_dataset.csv`
 - `olist_products_dataset.csv`
-- `olist_product_category_name_translation.csv`
+- `product_category_name_translation.csv`
 - `olist_order_payments_dataset.csv`
 - `olist_customers_dataset.csv`
 
@@ -29,8 +29,11 @@ pip install -r requirements.txt
 Obtené tu Groq API key gratuita en https://console.groq.com/
 
 ```bash
-cp .env.example .env
-# Editá .env y pegá tu GROQ_API_KEY
+# Windows PowerShell
+$env:GROQ_API_KEY="tu_api_key_aqui"
+
+# macOS / Linux
+export GROQ_API_KEY="tu_api_key_aqui"
 ```
 
 ### 4. Correr la app
