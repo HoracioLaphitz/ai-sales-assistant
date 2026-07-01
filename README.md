@@ -1,4 +1,4 @@
-# AI Sales Assistant
+# Proyecto de analisis de datos ecommerce
 
 Chat en lenguaje natural sobre 100k+ órdenes de e-commerce de Brasil.
 Analizá datos de Olist con LangChain + Groq llama3-70b desde una interfaz Streamlit.
